@@ -1,0 +1,33 @@
+public Actor actorWithMostNeighbors()
+{
+	if (0 == this.gr.getOccupiedLocations().size())
+	{
+		return null;
+	}
+	Location where = this.gr.getOccupiedLocations().get(0);
+	for (Location loc : this.gr.getOccupiedLocations())
+	{
+		if (this.gr.getNeighbors(where).size() < this.gr.getNeighbors(loc).size())
+		{
+			where = loc;
+		}
+	}
+	return this.gr.get(where);
+}
+
+public List<Location> getOccupiedWithinTwo(Location loc)
+{
+	List<Location> occupied = new ArrayList<Location>();
+	for (int row = loc.getRow() - 2; row <= loc.getRow() + 2; row++)
+	{
+		for (int col = loc.getCol() - 2; col <= loc.getCol() + 2; col++)
+		{
+			Location loc1 = new Location(row, col);
+			if (gr.isValid(loc1) && this.gr.get(loc1) != null && !loc1.equals(loc))
+			{
+				occupied.add(loc1);
+			}
+		}
+	}
+	return occupied;
+}
